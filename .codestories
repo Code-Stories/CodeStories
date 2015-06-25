@@ -1,0 +1,157 @@
+{
+  "Narratives": {
+    "/graham_scan.js/Program": [
+      {
+        "name": "A graham_scan.js program story",
+        "type": "Code",
+        "narrativeHooks": {
+          "/": {
+            "path": "/",
+            "items": [
+              {
+                "type": "vcode",
+                "content": "var pc = new PointCloud([]);\ndisplay(pc.domEl);"
+              },
+              {
+                "type": "text",
+                "content": "First we randomly add a set of ten random points to the canvas."
+              },
+              {
+                "type": "code",
+                "content": "var chull = new ConvexHullGrahamScan();\n\nfor(var i = 0 ; i < 10 ; i++){\n    chull.addPoint(\n        Math.floor((Math.random() * 200) +2) ,\n        Math.floor((Math.random() * 200) +2 ) \n        )\n}\nchull.getHull();"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/6/value/body/body/0/declarations/0": {
+            "path": "/body/1/expression/right/properties/6/value/body/body/0/declarations/0",
+            "items": [
+              {
+                "type": "vcode",
+                "content": "var originalPoints = this.points\npc.update(originalPoints, this.anchorPoint)"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/6/value/body/body/9/body/body/1/test": {
+            "path": "/body/1/expression/right/properties/6/value/body/body/9/body/body/1/test",
+            "items": [
+              {
+                "type": "vcode",
+                "content": "pc.pathsData = [];\npc.connect(hullPoints);\npc.connect(hullPoints.slice(-3),$result ? 'red':'green');"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/6/value/body/body/10/argument_Identifier": {
+            "path": "/body/1/expression/right/properties/6/value/body/body/10/argument_Identifier",
+            "items": [
+              {
+                "type": "text",
+                "content": "Done! The black lines show the calculated convex hull. If anything was still unclear, feel free to watch it again or play around with the narrative code!"
+              },
+              {
+                "type": "vcode",
+                "content": "pc.pathsData = [];\npc.connect(hullPoints.concat([hullPoints[0]]));"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/3/value/body/body/0/alternate/consequent/body/2/expression": {
+            "path": "/body/1/expression/right/properties/3/value/body/body/0/alternate/consequent/body/2/expression",
+            "items": [
+              {
+                "type": "vcode",
+                "content": "pc.highlight = [this.anchorPoint]\npc.update(this.points, this.anchorPoint);\n"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/3/value/body/body/1": {
+            "path": "/body/1/expression/right/properties/3/value/body/body/1",
+            "items": [
+              {
+                "type": "vcode",
+                "content": "pc.highlight = [this.anchorPoint]\npc.update(this.points, this.anchorPoint);"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/4/value/body/body/1/argument/arguments/0/body/body/2/test": {
+            "path": "/body/1/expression/right/properties/4/value/body/body/1/argument/arguments/0/body/body/2/test",
+            "items": [
+              {
+                "type": "vcode",
+                "content": "pc.sortLines(self.anchorPoint,self.points);\npc.highlight = [a,b]\npc.update(self.points, this.anchorPoint);"
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/6/value/body/body/1/expression": {
+            "path": "/body/1/expression/right/properties/6/value/body/body/1/expression",
+            "items": [
+              {
+                "type": "text",
+                "content": "Now these points need to be sorted, in respect to the anchor point. This leaves the points sorted in a clockwise manor. We illustrate this with colored lines towards the points. When the points are ordered, the lines will show a clockwise gradient, from green to red."
+              }
+            ]
+          },
+          "/body/1/expression/right/properties/6/value/body/body/4/expression": {
+            "path": "/body/1/expression/right/properties/6/value/body/body/4/expression",
+            "items": [
+              {
+                "type": "text",
+                "content": "As you see the points are sorted! We see a nice green to red gradient in the lines now. Now we can start creating the convex hull."
+              },
+              {
+                "type": "text",
+                "content": "The algorithm visits the points in their sorted order. For each three points that follow eachother, it is checked if they form a convex angle. If an angle is not convex, the middle point is excluded from the convex hull. In the visualization, non convex angles are shown with red lines."
+              }
+            ]
+          }
+        },
+        "dependencies": [
+          "/sorting/bubblesort.js"
+        ]
+      }
+    ],
+    "/graham_scan.js": [
+      {
+        "name": "A graham_scan.js story",
+        "type": "FS",
+        "items": [
+          {
+            "type": "text",
+            "content": "This is a convex hull algorithm. A convex hull is the smallest set of points that surrounds a full set of points. So a point set like this..."
+          },
+          {
+            "type": "picture",
+            "content": "http://i.imgur.com/ZOE0tSl.png"
+          },
+          {
+            "type": "text",
+            "content": "Has a convex hull like this..."
+          },
+          {
+            "type": "picture",
+            "content": "http://i.imgur.com/IJ11H34.png"
+          },
+          {
+            "type": "text",
+            "content": "The algorithm to determine this works as follows. First it determines the left most and highest point of the set, this is the anchor point. After that it sorts the rest of the points at an increasing angle of the x-axis in respect to the anchor point. This means that it's going to visit all the other points in a clockwise rotation from the anchor point. When this is all done, it's going to check for every point, whether if you would add it, it would lead to a convex hull."
+          },
+          {
+            "type": "text",
+            "content": "Let's see it in action.."
+          },
+          {
+            "type": "link",
+            "content": {
+              "id": "A graham_scan.js program story",
+              "path": "/graham_scan.js/Program"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "VObjects": {
+    "BarChart": "function BarChart(data) {\n\"use strict\";\n\n  var domEl = document.createElement('div');\n  var chart = d3.select(domEl).append('svg');\n  var height = this.height, width = this.width;\n  \n  var barGroup;\n  function update(newData) {\n    var barWidth = width / newData.length;\n    var yScale = d3.scale.linear().range([\n        height,\n        0\n      ]);\n      yScale.domain([\n        0,\n        d3.max(newData)\n      ]);\n      \n        barGroup = chart.selectAll('g').data(newData);\n    barGroup.exit().remove();\n    var barGroupEnter = barGroup.enter().append('g'); \n    barGroupEnter.append('rect').attr('width', barWidth - 1);\n    barGroupEnter.append('text');\n    \n    barGroup.attr('transform', function (d, i) {\n      return 'translate(' + barWidth * i + ',0)';\n    });\n    \n    barGroup.select('rect').transition().attr('height', function (d) {\n      return height - yScale(d);\n    }).attr('y', function (d) {\n      return yScale(d);\n    }).attr('fill', 'green')\n    \n    barGroup.select('text').attr('y', function (d) {\n      return yScale(d) + 3;\n    }).attr('dy', '.75em').text(function (d) {\n      return '' + d;\n    });\n  }\n  update(data);\n  function highlight(toHighlight, color) {\n    barGroup.select('rect').attr('fill', function (d, i) {\n      return toHighlight.indexOf(i) > -1 ? color : 'green';\n    });\n  }\n  return {\n    domEl: domEl,\n    update: update,\n    highlight: highlight\n  };\n}",
+    "List": "function List(data) {\n\"use strict\";\n\n  var domEl = document.createElement('div');\n  var svg = d3.select(domEl).append('svg');\n  function update(newData) {\n    var boxWidth = 100;\n    var boxHeight = 25;\n    svg.selectAll('rect').data(newData).enter().append('svg:rect').attr('width', boxWidth).attr('height', boxHeight).attr('stroke', 'black').attr('fill', 'rgba(0,0,0,0)').attr('y', function (d, i) {\n      return boxHeight * i;\n    });\n    svg.selectAll('text').data(newData).enter().append('svg:text').attr('y', function (d, i) {\n      return boxHeight * i + 15;\n    }).attr('x', 15).attr('fill', 'black');\n    svg.selectAll('text').data(newData).text(function (d) {\n      return d;\n    });\n  }\n  update(data);\n  return {\n    domEl: domEl,\n    update: update\n  };\n}",
+    "PointCloud": "function PointCloud(data) {\n\"use strict\";\n\n  var c =  this.center;\n  var itself = this;\n  this.domEl = document.createElement('div');\n  this.chart = d3.select(this.domEl).append('svg');\n  this.highlight = [];\n  var points = [];\n\n  var pointGroup;\n  this.update = function (newData, anchorPoint) {\n    points = newData;\n    pointGroup = itself.chart.selectAll('g').data(newData);\n    pointGroup.exit().remove()\n    var pointGroupEnter = pointGroup.enter().append('g').attr('transform','translate('+c.x+','+c.y+')');\n    \n    pointGroupEnter.append('circle');\n    pointGroupEnter.append('text');\n    \n    pointGroup.attr('transform', function (d, i) {\n      return 'translate(' +  d.x + ','+ d.y +')';\n    })\n    pointGroup.select('circle').attr('fill', function(d,i){\n        \n       return hasPoint(itself.highlight,d) ? 'red' : 'green';\n    }).attr('r', 4);\n    pointGroup.select('text').attr('dy', '.75em').text(function (d,i) {\n      return '  ' +i;\n    });\n    \n    if(anchorPoint){\n        this.chart.append(\"circle\")\n        .attr(\"fill\", \"green\")\n        .attr(\"cx\", anchorPoint.x+'')\n        .attr(\"cy\", anchorPoint.y+'')\n        .attr(\"r\", 4);\n    }\n   \n    \n  }\n  \n  \n  this.update(data);\n  \n  function hasPoint(list,p){\n      \n    for(var i in list){\n      if(list[i].x == p.x && list[i].y == p.y){\n        return true;\n      }\n    }\n    return false;\n  }\n  \n  var lineFunction = d3.svg.line()\n                    .x(function(d) { return d.x; })                        .y(function(d) { return d.y; })\n                    .interpolate(\"linear\");\n  \n  this.pathsData = []\n  this.connect = function(list,color){\n     this.pathsData.push(list)\n     var paths = itself.chart.selectAll('path').data(this.pathsData);\n     paths.exit().remove();\n     paths.enter()\n        .append(\"path\")\n        .attr(\"stroke\", color || 'black')\n        .attr(\"stroke-width\", 2)\n        .attr(\"fill\", \"none\");\n    paths.attr(\"d\", function(d,i){return lineFunction(d)});\n  }\n  \nthis.sortLines = function(anchorpoint, newData){\n    console.log(newData);\n   var lines = itself.chart.selectAll(\"line\").data(newData);\n   lines.exit().remove();\n   lines.enter().append(\"line\");\n   lines.transition()\n   .attr(\"x1\", anchorpoint.x+'')\n   .attr(\"y1\", anchorpoint.y+'')\n   .attr(\"x2\", function(d,i){return d.x+''})\n   .attr(\"y2\", function(d,i){return d.y+''})\n   .attr(\"stroke-width\", '2')\n   .attr(\"stroke\", function(d,i){return d3.hsl(150-(i/newData.length) * 150, 1, .5)});\n }\n \n this.pointChart = this.chart.append(\"g\");\nvar lineset = this.chart.append(\"g\");\n\nreturn this;\n}",
+    "Canvas": "function Canvas(centered) {\n\"use strict\";\n\n  var height = this.height, width = this.width;\n  \n  function reposition(p){\n        if(centered){\n            p.x += center.x;\n            p.y += center.y;\n        }\n    return p;\n  }\n\n  var dom = document.createElement('div');\n  var canvas = document.createElement('canvas');\n  dom.width = width;\n  dom.height = height;\n  dom.appendChild(canvas);\n  canvas.width = width;\n  canvas.height = height;\n  var center = {\n      'x': width / 2,\n      'y': height / 2\n    }\n  var ctx = canvas.getContext('2d');\n  var TAU = Math.PI *2;\n  \n  \n  function drawPoint(x,y,r,color){\n      var p  = reposition({x:x,y:y});\n      ctx.beginPath();\n      ctx.arc(p.x,p.y,r || 3, 0,TAU);\n      ctx.fill();\n      ctx.stroke();\n      ctx.closePath();\n      \n  }\n\n  ctx.domEl = dom;\n  ctx.drawPoint = drawPoint;\n  ctx.center = center;\n  \n  return ctx;\n}"
+  }
+}
